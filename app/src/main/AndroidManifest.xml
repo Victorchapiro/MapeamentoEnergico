@@ -24,6 +24,11 @@
             </intent-filter>
         </activity>
 
+        <!-- RegisterActivity for user registration -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+
         <!-- MainActivity will be called after successful login -->
         <activity
             android:name=".MainActivity"

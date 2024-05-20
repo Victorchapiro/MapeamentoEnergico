@@ -9,13 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mapeamentoenergico.MainActivity;
-
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextUsername;
     private EditText editTextPassword;
-    private Button buttonLogin;
+    private Button buttonLogin, buttonRegisterLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
+        buttonRegisterLogin = findViewById(R.id.buttonRegisterLogin);
+
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,8 +38,18 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Passoword ou senha inválidos",
+                            Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        buttonRegisterLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+                    finish();
             }
         });
     }
@@ -46,6 +57,6 @@ public class LoginActivity extends AppCompatActivity {
     private boolean authenticate(String username, String password) {
         // Implement your authentication logic here.
         // For demonstration purposes, we'll assume the credentials are "admin" and "password".
-        return "admin".equals(username) && "password".equals(password);
+        return "admin".equals(username) && "admin".equals(password);
     }
 }

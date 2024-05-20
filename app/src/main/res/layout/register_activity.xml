@@ -7,18 +7,8 @@
     android:background="@android:color/white"
     tools:context=".LoginActivity">
 
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
-
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextUsernameRegister"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
@@ -30,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextPasswordRegister"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/baseline_key_24"
@@ -39,17 +29,27 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
+
+    <EditText
+        android:id="@+id/editTextNameregister"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
+        android:drawablePadding="10dp"
+        android:hint="Nome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
 
     <Button
-        android:id="@+id/buttonRegisterLogin"
+        android:id="@+id/buttonRegister"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:text="Registar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="Login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameregister" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
