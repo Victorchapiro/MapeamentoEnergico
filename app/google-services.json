@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "128356025371",
+    "project_id": "mapeamento-energico",
+    "storage_bucket": "mapeamento-energico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128356025371:android:8d5f54970886a181a1e4be",
+        "android_client_info": {
+          "package_name": "com.example.mapeamentoenergico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSJnGklhZR2MQIUKEzZeLTgCZSVDJnpXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
