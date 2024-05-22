@@ -47,7 +47,7 @@
         android:id="@+id/buttonRegister"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Registrar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNameregister" />
 
