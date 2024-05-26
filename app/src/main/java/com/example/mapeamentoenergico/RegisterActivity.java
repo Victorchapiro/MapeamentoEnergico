@@ -22,9 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText editTextUsernameRegister;
-    private EditText editTextPasswordRegister;
-    private EditText editTextNameRegister;
+    private EditText editTextPasswordRegister, editTextPasswordRegister2, editTextNameRegister, editTextUsernameRegister ;
     private Button buttonRegister;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -42,16 +40,21 @@ public class RegisterActivity extends AppCompatActivity {
         editTextPasswordRegister = findViewById(R.id.editTextPasswordRegister);
         editTextNameRegister = findViewById(R.id.editTextNameregister);
         buttonRegister = findViewById(R.id.buttonRegister);
+        editTextPasswordRegister2 = findViewById(R.id.editTextPasswordRegister2);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = editTextUsernameRegister.getText().toString();
                 String password = editTextPasswordRegister.getText().toString();
+                String passwordConfirm = editTextPasswordRegister2.getText().toString();
                 String name = editTextNameRegister.getText().toString();
 
                 if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Por favor, preencha todos os campos.",
+                            Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(passwordConfirm)) {
+                    Toast.makeText(RegisterActivity.this, "Os campos senha e confirmação de senha não conferem",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     register(email, password, name);

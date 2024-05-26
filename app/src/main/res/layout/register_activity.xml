@@ -7,22 +7,49 @@
     android:background="@android:color/white"
     tools:context=".LoginActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarHome"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:contentInsetLeft="0dp"
+        app:contentInsetLeftWithNavigation="0dp"
+        app:contentInsetStart="100dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextUsernameRegister"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Mapeamento Energetico"
+        app:titleTextColor="@android:color/white"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Registrar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameregister" />
+
     <EditText
-        android:id="@+id/editTextUsernameRegister"
+        android:id="@+id/editTextNameregister"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:drawableLeft="@drawable/baseline_alternate_email_24"
+        android:layout_marginTop="88dp"
+        android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
         android:drawablePadding="10dp"
-        android:hint="E-mail"
+        android:hint="Nome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
 
     <EditText
         android:id="@+id/editTextPasswordRegister"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:drawableLeft="@drawable/baseline_key_24"
         android:drawablePadding="10dp"
         android:hint="Senha"
@@ -32,24 +59,29 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
 
     <EditText
-        android:id="@+id/editTextNameregister"
+        android:id="@+id/editTextPasswordRegister2"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:drawableLeft="@drawable/baseline_drive_file_rename_outline_24"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/baseline_key_24"
         android:drawablePadding="10dp"
-        android:hint="Nome"
+        android:hint="Confirmar Senha"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
 
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="411dp"
+    <EditText
+        android:id="@+id/editTextUsernameRegister"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:text="Registrar"
+        android:layout_marginTop="160dp"
+        android:drawableLeft="@drawable/baseline_alternate_email_24"
+        android:drawablePadding="10dp"
+        android:hint="E-mail"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNameregister" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
