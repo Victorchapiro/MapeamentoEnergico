@@ -168,30 +168,9 @@
         android:layout_marginStart="150dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="150dp"
-        android:text="Calcular"
+        android:text="Avaliar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner5" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="360dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
-        android:text="Texto com maiores consumidores e contribuição para a conta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="360dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:text="Texto com dica para melhorar consumo do pior equipamento"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:layout_editor_absoluteX="29dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
