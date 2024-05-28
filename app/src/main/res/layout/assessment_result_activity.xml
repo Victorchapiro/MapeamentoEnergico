@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
+        app:contentInsetStart="100dp"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_home_24"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"

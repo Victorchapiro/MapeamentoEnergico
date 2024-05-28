@@ -33,6 +33,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
+        <activity android:name=".UserManagementActivity"
+            android:exported="true" />
+        <activity android:name=".AssessmentActivty"
+            android:exported="true" />
+
+
+
     </application>
 
 </manifest>
