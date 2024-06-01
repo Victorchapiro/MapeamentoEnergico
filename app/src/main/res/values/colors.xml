@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color> <!-- Azul forte -->
+    <color name="colorPrimaryDark">#3700B3</color> <!-- Azul escuro -->
+    <color name="colorAccent">#03DAC5</color> <!-- Verde água vibrante -->
+    <color name="white">#FFFFFF</color> <!-- Branco puro -->
+    <color name="black">#000000</color> <!-- Preto puro -->
+    <color name="textColor">#212121</color> <!-- Preto quase puro para texto -->
+    <color name="backgroundColor">#FFFFFF</color> <!-- Branco puro para o fundo -->
+    <color name="buttonColor">#6200EE</color> <!-- Azul forte para botões -->
+    <color name="editTextHintColor">#757575</color> <!-- Cinza médio para dicas -->
 </resources>
+
