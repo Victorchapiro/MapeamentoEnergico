@@ -41,19 +41,14 @@ public class AssessmentActivty extends AppCompatActivity {
         // Receber os itens selecionados
         checkedItems = getIntent().getParcelableArrayListExtra("checkedItems");
         conta = getIntent().getDoubleExtra("conta", 0);
-        for (Appliance a : checkedItems) {
-            assessmentBill.add(new ApplianceAssessment(a.getConsumption(), a.getName()));
-        }
+
+        // Calcular o percentual e atualizar a lista assessmentBill
+        assessmentBill = percentualCalculator(checkedItems, conta);
 
         // Configurar o Adapter para o RecyclerView
         applianceAdapter = new ApplianceAssessmentAdapter(assessmentBill);
         recyclerView.setAdapter(applianceAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Calcular o percentual para o primeiro appliance
-        Appliance appliance = checkedItems.get(0);
-        double percentual = percentualCalculator(checkedItems, appliance);
-        Log.d("CalculadoraPercentual", "O percentual para " + appliance.getName() + " é: " + percentual + "%");
 
         // Configurar ação do botão de voltar
         toolbarHome.setNavigationOnClickListener(new View.OnClickListener() {
@@ -76,16 +71,20 @@ public class AssessmentActivty extends AppCompatActivity {
         });
     }
 
-    public static double percentualCalculator(List<Appliance> checkedItems, Appliance appliance) {
+    public List<ApplianceAssessment> percentualCalculator(List<Appliance> checkedItems, double conta) {
+        List<ApplianceAssessment> assessmentBill = new ArrayList<>();
         double somatorioTotal = 0.0;
         for (Appliance a : checkedItems) {
             somatorioTotal += a.getEnergicSpent() * a.getQuantity();
             Log.d("valor", "somatório " + somatorioTotal);
         }
 
-        double valorAppliance = appliance.getEnergicSpent() * appliance.getQuantity();
-        double percentual = (valorAppliance / somatorioTotal) * 100.0;
+        for (Appliance a : checkedItems) {
+            double valueEachAppliance = (a.getEnergicSpent() * a.getQuantity());
+            double percentual = ((valueEachAppliance / somatorioTotal) * conta);
+            assessmentBill.add(new ApplianceAssessment(percentual, a.getName()));
+        }
 
-        return percentual;
+        return assessmentBill;
     }
 }
