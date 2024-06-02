@@ -15,7 +15,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"/>
 
     <!-- Campo de entrada para a quantidade -->
     <EditText
@@ -28,5 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.666"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

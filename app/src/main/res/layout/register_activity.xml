@@ -41,7 +41,9 @@
         android:hint="Nome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"/>
 
     <EditText
         android:id="@+id/editTextPasswordRegister"
@@ -54,7 +56,9 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"/>
 
     <EditText
         android:id="@+id/editTextPasswordRegister2"
@@ -67,7 +71,9 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextUsernameRegister"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"/>
 
     <EditText
         android:id="@+id/editTextUsernameRegister"
@@ -79,7 +85,9 @@
         android:hint="E-mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
