@@ -1,12 +1,16 @@
 package com.example.mapeamentoenergico;
 
-// ApplianceAdapter.java
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.ApplianceViewHolder> {
@@ -27,7 +31,27 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.Appl
     @Override
     public void onBindViewHolder(@NonNull ApplianceViewHolder holder, int position) {
         Appliance appliance = applianceList.get(position);
-        holder.nameTextView.setText(appliance.getName());
+        holder.checkBox.setText(appliance.getName());
+        holder.checkBox.setChecked(appliance.isChecked());
+        holder.editText.setText(String.valueOf(appliance.getQuantity()));
+
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            applianceList.get(holder.getAdapterPosition()).setChecked(isChecked);
+        });
+
+        holder.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int quantity = s.toString().isEmpty() ? 0 : Integer.parseInt(s.toString());
+                applianceList.get(holder.getAdapterPosition()).setQuantity(quantity);
+            }
+        });
     }
 
     @Override
@@ -36,11 +60,13 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.Appl
     }
 
     public static class ApplianceViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView;
+        CheckBox checkBox;
+        EditText editText;
 
         public ApplianceViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.checkBoxAppliance);
+            checkBox = itemView.findViewById(R.id.checkBoxAppliance);
+            editText = itemView.findViewById(R.id.editTextQuantity);
         }
     }
 }

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" >
 
     <!-- Top bar com ícones clicáveis -->
     <androidx.appcompat.widget.Toolbar
@@ -26,33 +27,46 @@
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="@id/toolbarHome"
         app:layout_constraintBottom_toBottomOf="@id/toolbarHome"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbarHome"
         app:srcCompat="@drawable/baseline_key_24" />
 
     <!-- Texto 1 -->
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="360dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="72dp"
-        android:text="Texto com maiores consumidores e contribuição para a conta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarHome" />
 
     <!-- Texto 2 -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="409dp"
+        android:layout_height="498dp"
+        app:layout_constraintBottom_toTopOf="@id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarHome"
+        app:layout_constraintVertical_bias="0.162">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="21"
+            tools:listitem="@layout/assessment_items" />
+
+    </androidx.core.widget.NestedScrollView>
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="360dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="544dp"
         android:text="Texto com dica para melhorar consumo do pior equipamento"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.313"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

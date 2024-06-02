@@ -27,10 +27,11 @@
         android:layout_marginEnd="32dp"
         android:hint="Qtd"
         android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/editTextHintColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666"
-        android:textColor="@color/textColor"
-        android:textColorHint="@color/editTextHintColor"/>
+        app:layout_constraintVertical_bias="0.666" />
 </androidx.constraintlayout.widget.ConstraintLayout>

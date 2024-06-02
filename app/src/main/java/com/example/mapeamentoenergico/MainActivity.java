@@ -2,19 +2,19 @@ package com.example.mapeamentoenergico;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.widget.ImageButton;
-import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton buttonUser;
@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ApplianceAdapter applianceAdapter;
     private List<Appliance> applianceList;
+    private EditText editTextNumberDecimal;
+    private double conta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         buttonUser = findViewById(R.id.buttonUser);
         buttonAssessment = findViewById(R.id.buttonAssessment);
         recyclerView = findViewById(R.id.recyclerView);
+        editTextNumberDecimal = findViewById(R.id.editTextNumberDecimal);
         // Initialize the appliance list
         applianceList = new ArrayList<>();
         applianceList.add(new Appliance("Geladeira", 56.88, 240.00, 13651.20));
@@ -71,10 +74,28 @@ public class MainActivity extends AppCompatActivity {
         buttonAssessment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AssessmentActivty.class);
-                startActivity(intent);
+                captureCheckedItems();
                 finish(); // Finalize a atividade atual se necessário
             }
         });
     }
+    private void captureCheckedItems() {
+        List<Appliance> checkedItems = new ArrayList<>();
+        for (Appliance appliance : applianceList) {
+            if (appliance.isChecked()) {
+                checkedItems.add(appliance);
+            }
+        }
+        conta = Double.parseDouble(editTextNumberDecimal.getText().toString());
+        Intent intent = new Intent(MainActivity.this, AssessmentActivty.class);
+        intent.putParcelableArrayListExtra("checkedItems", (ArrayList<? extends Parcelable>) checkedItems);
+        intent.putExtra("conta",conta);
+        startActivity(intent);
+
+
+        for (Appliance appliance : checkedItems) {
+            Log.d("MainActivity", "Appliance: " + appliance.getName() + ", Quantity: " + appliance.getQuantity());
+        }
+    }
+
 }
