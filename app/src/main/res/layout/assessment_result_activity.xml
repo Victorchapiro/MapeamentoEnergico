@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#FFFFFF">
 
     <!-- Top bar com ícones clicáveis -->
     <androidx.appcompat.widget.Toolbar
@@ -32,18 +32,30 @@
         app:layout_constraintTop_toTopOf="@id/toolbarHome"
         app:srcCompat="@drawable/baseline_key_24" />
 
-    <!-- Texto 1 -->
 
-    <!-- Texto 2 -->
+    <TextView
+        android:id="@+id/textViewHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avaliação"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHome" />
+
     <androidx.core.widget.NestedScrollView
-        android:layout_width="409dp"
-        android:layout_height="498dp"
+        android:id="@+id/nestedScrollView"
+        android:layout_width="416dp"
+        android:layout_height="441dp"
         app:layout_constraintBottom_toTopOf="@id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarHome"
-        app:layout_constraintVertical_bias="0.162">
+        app:layout_constraintVertical_bias="0.428">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

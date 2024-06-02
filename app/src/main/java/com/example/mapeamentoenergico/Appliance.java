@@ -15,7 +15,7 @@ public class Appliance implements Parcelable {
         this.timeAverage = timeAverage;
         this.energicSpent = energicSpent;
         this.isChecked = false;
-        this.quantity = 0;
+
     }
 
     protected Appliance(Parcel in) {

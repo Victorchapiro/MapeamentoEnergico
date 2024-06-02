@@ -33,7 +33,7 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.Appl
         Appliance appliance = applianceList.get(position);
         holder.checkBox.setText(appliance.getName());
         holder.checkBox.setChecked(appliance.isChecked());
-        holder.editText.setText(String.valueOf(appliance.getQuantity()));
+
 
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             applianceList.get(holder.getAdapterPosition()).setChecked(isChecked);
