@@ -14,7 +14,8 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewValue"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/textColor"/>
 
     <TextView
         android:id="@+id/textViewValue"
@@ -25,6 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewName"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp" /> <!-- Adicionando margem horizontal -->
+        android:layout_marginStart="8dp"
+        android:textColor="@color/textColor"/> <!-- Adicionando margem horizontal -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
