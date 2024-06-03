@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton buttonUser;
@@ -24,15 +24,18 @@ public class MainActivity extends AppCompatActivity {
     private List<Appliance> applianceList;
     private EditText editTextNumberDecimal;
     private double conta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.main_activity);
+
         buttonUser = findViewById(R.id.buttonUser);
         buttonAssessment = findViewById(R.id.buttonAssessment);
         recyclerView = findViewById(R.id.recyclerView);
         editTextNumberDecimal = findViewById(R.id.editTextNumberDecimal);
+
         // Initialize the appliance list
         applianceList = new ArrayList<>();
         applianceList.add(new Appliance("Geladeira", 56.88, 240.00, 13651.20));
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         applianceList.add(new Appliance("Aparelho de som", 10.56, 30.00, 316.80));
         applianceList.add(new Appliance("Videogame", 6.48, 20.00, 129.60));
         applianceList.add(new Appliance("Carregador de celular", 0.54, 60.00, 32.40));
+
         // Set the adapter and layout manager for the RecyclerView
         applianceAdapter = new ApplianceAdapter(applianceList);
         recyclerView.setAdapter(applianceAdapter);
@@ -74,28 +78,46 @@ public class MainActivity extends AppCompatActivity {
         buttonAssessment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                captureCheckedItems();
-                finish(); // Finalize a atividade atual se necessário
+                // Verifique se o valor da conta foi inserido
+                String contaText = editTextNumberDecimal.getText().toString().trim();
+                if (contaText.isEmpty()) {
+                    // Exiba uma mensagem de erro ao usuário
+                    Toast.makeText(MainActivity.this, "Por favor, insira o valor da conta.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Prossiga com a captura dos itens selecionados e navegação para a próxima atividade
+                    captureCheckedItems();
+                }
             }
         });
     }
+
     private void captureCheckedItems() {
         List<Appliance> checkedItems = new ArrayList<>();
+        boolean hasEmptyQuantity = false;
+
         for (Appliance appliance : applianceList) {
             if (appliance.isChecked()) {
-                checkedItems.add(appliance);
+                if (appliance.getQuantity() <= 0) {
+                    hasEmptyQuantity = true;
+                    break;
+                } else {
+                    checkedItems.add(appliance);
+                }
             }
         }
-        conta = Double.parseDouble(editTextNumberDecimal.getText().toString());
-        Intent intent = new Intent(MainActivity.this, AssessmentActivty.class);
-        intent.putParcelableArrayListExtra("checkedItems", (ArrayList<? extends Parcelable>) checkedItems);
-        intent.putExtra("conta",conta);
-        startActivity(intent);
 
+        if (hasEmptyQuantity) {
+            Toast.makeText(this, "Por favor, insira a quantidade para os itens selecionados.", Toast.LENGTH_SHORT).show();
+        } else {
+            conta = Double.parseDouble(editTextNumberDecimal.getText().toString());
+            Intent intent = new Intent(MainActivity.this, AssessmentActivty.class);
+            intent.putParcelableArrayListExtra("checkedItems", (ArrayList<? extends Parcelable>) checkedItems);
+            intent.putExtra("conta", conta);
+            startActivity(intent);
 
-        for (Appliance appliance : checkedItems) {
-            Log.d("MainActivity", "Appliance: " + appliance.getName() + ", Quantity: " + appliance.getQuantity());
+            for (Appliance appliance : checkedItems) {
+                Log.d("MainActivity", "Appliance: " + appliance.getName() + ", Quantity: " + appliance.getQuantity());
+            }
         }
     }
-
 }
