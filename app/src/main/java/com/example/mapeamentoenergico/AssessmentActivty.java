@@ -29,8 +29,8 @@ public class AssessmentActivty extends AppCompatActivity {
     private List<ApplianceAssessment> assessmentBill;
     private double conta;
     private TextView textView;
-    private String token = "SEU_TOKEN_AQUI";  // Adicione o token de autenticação
-    private static final String BASE_URL = "https://suaapi.com"; // Base URL da API
+    private String token;  // O token JWT será armazenado aqui
+    private static final String BASE_URL = "http://192.168.1.14:5000"; // URL da sua API (no caso de localhost em um emulador Android)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,26 +60,54 @@ public class AssessmentActivty extends AppCompatActivity {
         recyclerView.setAdapter(applianceAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Configurar ação do botão de voltar
-        toolbarHome.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // Configurar ação do botão de usuário
+        // Realizar login e obter token JWT
+        loginUser("usuario1", "senha123");  // Você pode substituir pelo usuário e senha corretos
         buttonUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Inflar o layout user_management_activity
                 Intent intent = new Intent(AssessmentActivty.this, UserManagementActivity.class);
                 startActivity(intent);
-                finish();
+                finish(); // Finalize a atividade atual se necessário
+            }
+        });
+        toolbarHome.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Direcionar para a MainActivity
+                Intent intent = new Intent(AssessmentActivty.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // Finaliza a atividade atual se necessário
             }
         });
 
-        // Consumir a API e obter a dica de energia
-        getEnergyTipFromApi();
+
+
+    }
+
+    private void loginUser(String username, String password) {
+        Retrofit retrofit = RetrofitClient.getClient(BASE_URL);
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        LoginRequest loginRequest = new LoginRequest(username, password);
+
+        Call<LoginResponse> call = apiService.login(loginRequest);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    token = response.body().getAccessToken();  // Armazenar o token
+                    getEnergyTipFromApi();  // Após login bem-sucedido, obter a dica de energia
+                } else {
+                    Log.e("Login Error", "Erro ao autenticar");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("Login Error", "Falha na chamada da API de login", t);
+            }
+        });
     }
 
     private void getEnergyTipFromApi() {
@@ -87,13 +115,13 @@ public class AssessmentActivty extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         Call<EnergyTipResponse> call = apiService.getEnergyTip("Bearer " + token);
-
         call.enqueue(new Callback<EnergyTipResponse>() {
             @Override
             public void onResponse(Call<EnergyTipResponse> call, Response<EnergyTipResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String dicaDaApi = response.body().getTip();
-                    textView.setText(dicaDaApi); // Exibir a dica retornada da API
+                    String dicaDaApi = response.body().getDica();
+                    Log.d("API Success", "Dica recebida: " + dicaDaApi);
+                    textView.setText(dicaDaApi);  // Exibir a dica retornada da API
                 } else {
                     Log.e("API Error", "Erro ao obter a dica de energia");
                 }

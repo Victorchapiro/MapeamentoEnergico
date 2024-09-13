@@ -1,14 +1,14 @@
 package com.example.mapeamentoenergico;
 
 public class EnergyTipResponse {
-    private String tip;
+    private String dica;
 
-    public String getTip() {
-        return tip;
+    public String getDica() {
+        return dica;
     }
 
-    public void setTip(String tip) {
-        this.tip = tip;
+    public void setDica(String dica) {
+        this.dica = dica;
     }
 }
 
