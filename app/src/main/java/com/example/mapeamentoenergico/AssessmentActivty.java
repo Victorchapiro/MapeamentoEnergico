@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AssessmentActivty extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -26,35 +29,19 @@ public class AssessmentActivty extends AppCompatActivity {
     private List<ApplianceAssessment> assessmentBill;
     private double conta;
     private TextView textView;
-    String[] dicas = {
-            "Desligue aparelhos não utilizados: Desligue luzes, ventiladores, computadores e outros aparelhos quando não estiverem em uso.",
-            "Use lâmpadas LED: Elas consomem menos energia e duram mais.",
-            "Aproveite a luz natural: Mantenha as janelas abertas durante o dia para reduzir o uso de lâmpadas.",
-            "Regule o termostato: Ajuste o termostato para uma temperatura eficiente. No verão, mantenha-o mais alto; no inverno, mais baixo.",
-            "Desconecte carregadores: Desconecte carregadores de celular e outros dispositivos quando não estiverem em uso, pois continuam consumindo energia.",
-            "Utilize eletrodomésticos eficientes: Opte por aparelhos com selo de eficiência energética (Procel ou Energy Star).",
-            "Cozinhe de forma eficiente: Use tampas nas panelas e cozinhe em fogo baixo para economizar gás.",
-            "Faça manutenção regular: Limpe ou troque filtros de ar condicionado e aquecedores regularmente para garantir eficiência.",
-            "Evite stand-by: Desligue aparelhos da tomada em vez de deixá-los em modo stand-by.",
-            "Lave roupas com água fria: Sempre que possível, use água fria para lavar roupas e acumule uma quantidade maior antes de lavar.",
-            "Seque roupas ao ar livre: Sempre que possível, evite usar a secadora e seque as roupas ao ar livre.",
-            "Utilize timers: Use temporizadores em aparelhos como aquecedores de água e luzes externas."
-    };
+    private String token = "SEU_TOKEN_AQUI";  // Adicione o token de autenticação
+    private static final String BASE_URL = "https://suaapi.com"; // Base URL da API
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.assessment_result_activity);
 
         buttonUser = findViewById(R.id.buttonUser);
         toolbarHome = findViewById(R.id.toolbarHome);
         recyclerView = findViewById(R.id.recyclerView);
         textView = findViewById(R.id.textView5);
-        Random random = new Random();
-        int indiceAleatorio = random.nextInt(dicas.length);
-        String dicaAleatoria = dicas[indiceAleatorio];
-        textView.setText(dicaAleatoria);
+
         setSupportActionBar(toolbarHome);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,8 +64,6 @@ public class AssessmentActivty extends AppCompatActivity {
         toolbarHome.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AssessmentActivty.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -92,6 +77,33 @@ public class AssessmentActivty extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Consumir a API e obter a dica de energia
+        getEnergyTipFromApi();
+    }
+
+    private void getEnergyTipFromApi() {
+        Retrofit retrofit = RetrofitClient.getClient(BASE_URL);
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<EnergyTipResponse> call = apiService.getEnergyTip("Bearer " + token);
+
+        call.enqueue(new Callback<EnergyTipResponse>() {
+            @Override
+            public void onResponse(Call<EnergyTipResponse> call, Response<EnergyTipResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String dicaDaApi = response.body().getTip();
+                    textView.setText(dicaDaApi); // Exibir a dica retornada da API
+                } else {
+                    Log.e("API Error", "Erro ao obter a dica de energia");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EnergyTipResponse> call, Throwable t) {
+                Log.e("API Error", "Falha na chamada da API", t);
+            }
+        });
     }
 
     public List<ApplianceAssessment> percentualCalculator(List<Appliance> checkedItems, double conta) {
@@ -99,7 +111,6 @@ public class AssessmentActivty extends AppCompatActivity {
         double somatorioTotal = 0.0;
         for (Appliance a : checkedItems) {
             somatorioTotal += a.getEnergicSpent() * a.getQuantity();
-            Log.d("valor", "somatório " + somatorioTotal);
         }
 
         for (Appliance a : checkedItems) {

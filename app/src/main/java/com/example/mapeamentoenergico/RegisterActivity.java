@@ -17,14 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
-import androidx.appcompat.widget.Toolbar;
-import android.widget.ImageButton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText editTextPasswordRegister, editTextPasswordRegister2, editTextNameRegister, editTextUsernameRegister ;
+    private EditText editTextPasswordRegister, editTextPasswordRegister2, editTextNameRegister, editTextUsernameRegister;
     private Button buttonRegister;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -66,65 +64,67 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(final String email, String password, final String name) {
-        auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Registration success
-                            FirebaseUser user = auth.getCurrentUser();
-                            if (user != null) {
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(name)
-                                        .build();
+        try {
+            auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = auth.getCurrentUser();
+                                if (user != null) {
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(name)
+                                            .build();
 
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    // Profile updated successfully, save user data to Firestore
-                                                    saveUserToFirestore(user.getUid(), email, name);
-                                                } else {
-                                                    Toast.makeText(RegisterActivity.this, "Falha ao atualizar perfil: " + task.getException().getMessage(),
-                                                            Toast.LENGTH_SHORT).show();
+                                    user.updateProfile(profileUpdates)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        saveUserToFirestore(user.getUid(), email, name);
+                                                    } else {
+                                                        Toast.makeText(RegisterActivity.this, "Falha ao atualizar perfil: " + task.getException().getMessage(),
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                }
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Registro falhou: " + task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            // If registration fails, display a message to the user
-                            Toast.makeText(RegisterActivity.this, "Registro falhou: " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+        } catch (Exception e) {
+            Toast.makeText(RegisterActivity.this, "Erro ao registrar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void saveUserToFirestore(String uid, String email, String name) {
-        // Create a new user with email and name
-        Map<String, Object> user = new HashMap<>();
-        user.put("email", email);
-        user.put("name", name);
+        try {
+            Map<String, Object> user = new HashMap<>();
+            user.put("email", email);
+            user.put("name", name);
 
-        // Add a new document with a UID as the document ID
-        db.collection("users").document(uid)
-                .set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Data saved successfully
-                            Toast.makeText(RegisterActivity.this, "Registro bem-sucedido! Bem-vindo, " + name,
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Falha ao salvar dados: " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+            db.collection("users").document(uid)
+                    .set(user)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Registro bem-sucedido! Bem-vindo, " + name,
+                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Falha ao salvar dados: " + task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        } catch (Exception e) {
+            Toast.makeText(RegisterActivity.this, "Erro ao salvar dados: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
