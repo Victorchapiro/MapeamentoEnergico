@@ -29,7 +29,7 @@ public class AssessmentActivty extends AppCompatActivity {
     private List<ApplianceAssessment> assessmentBill;
     private double conta;
     private TextView textView;
-    private String token;  // O token JWT será armazenado aqui
+    private String token;  // O token JWT que será armazenado
     private static final String BASE_URL = "http://192.168.1.14:5000"; // URL da sua API (no caso de localhost em um emulador Android)
 
     @Override
